@@ -25,7 +25,7 @@ namespace EduBarcode
 
         public static float FaceDetectionThreshold = 3;
         public static float FARValue = 100;
-        string srcAppPhotoPath = ConfigurationSettings.AppSettings["TestPath"].ToString().Trim() + "//Photos//" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + ".jpg";
+        string srcAppPhotoPath = ConfigurationSettings.AppSettings["TestPathURL"].ToString().Trim() + "//Photos//" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + ".jpg";
         string downloadedAppPhotoPath = Environment.CurrentDirectory + "//" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + "_AppPhoto.jpg";
         public TakePhoto()
         {

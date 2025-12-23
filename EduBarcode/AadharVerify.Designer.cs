@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtComment = new System.Windows.Forms.TextBox();
             this.btnSkip = new System.Windows.Forms.Button();
+            this.txtAppNo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -100,11 +101,21 @@
             this.btnSkip.UseVisualStyleBackColor = true;
             this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
+            // txtAppNo
+            // 
+            this.txtAppNo.AutoSize = true;
+            this.txtAppNo.Location = new System.Drawing.Point(126, 103);
+            this.txtAppNo.Name = "txtAppNo";
+            this.txtAppNo.Size = new System.Drawing.Size(13, 20);
+            this.txtAppNo.TabIndex = 7;
+            this.txtAppNo.Text = ".";
+            // 
             // AadharVerify
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(796, 467);
+            this.Controls.Add(this.txtAppNo);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.txtComment);
             this.Controls.Add(this.label2);
@@ -114,6 +125,7 @@
             this.Controls.Add(this.label1);
             this.Name = "AadharVerify";
             this.Text = "AadharVerify";
+            this.Load += new System.EventHandler(this.AadharVerify_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,5 +140,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtComment;
         private System.Windows.Forms.Button btnSkip;
+        private System.Windows.Forms.Label txtAppNo;
     }
 }

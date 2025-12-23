@@ -42,10 +42,17 @@ namespace EduBarcode
             {
                 Configuration configuration = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
                 string[] urlArr = configuration.AppSettings.Settings["ServerAdd"].Value.Split('/');
+                string[] urlTestPhoto = configuration.AppSettings.Settings["TestPathURL"].Value.Split('/');
+                string[] urlAPI = configuration.AppSettings.Settings["apiURL"].Value.Split('/');
                 string newUrl = urlArr[0] + "/";
                 newUrl += "/" + ((TextBox)(sender)).Text.Trim();
-                newUrl += "/" + urlArr[3] + "/";
-                configuration.AppSettings.Settings["ServerAdd"].Value = newUrl;
+
+                string serverNewUrl = newUrl + "/" + urlArr[3] + "/";
+                string testNewUrl = newUrl + "/" + urlTestPhoto[3] + "/";
+                string apiNewUrl = newUrl + "/" + urlAPI[3] + "/";
+                configuration.AppSettings.Settings["ServerAdd"].Value = serverNewUrl;
+                configuration.AppSettings.Settings["TestPathURL"].Value = testNewUrl;
+                configuration.AppSettings.Settings["apiURL"].Value = apiNewUrl;
                 configuration.Save(ConfigurationSaveMode.Full, true);
                 ConfigurationManager.RefreshSection("appSettings");
             }
