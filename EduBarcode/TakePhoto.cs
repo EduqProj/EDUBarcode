@@ -100,8 +100,6 @@ namespace EduBarcode
                     ClosePreviewWindow();
                     picCapture.Visible = false;
                     String sfilename = Environment.CurrentDirectory + "\\" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + ".jpg";
-                    //String sfilename = Environment.CurrentDirectory + "\\Manju.jpg";
-                    //String sfilename = string.Empty;
                     string status = "0";
                     bmap.Save(sfilename, System.Drawing.Imaging.ImageFormat.Jpeg);
                     if (File.Exists(downloadedAppPhotoPath))

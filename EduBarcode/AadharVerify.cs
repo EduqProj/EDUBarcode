@@ -47,6 +47,8 @@ namespace EduBarcode
                     myobj.aadharToken = MainFrm.Hdoc.GetElementById("txtAadharToken").GetAttribute("value");
                     string body1 = Newtonsoft.Json.JsonConvert.SerializeObject(myobj);
                     string resp = wc.UploadString(ConfigurationManager.AppSettings["apiURL"].ToString()+ "/api/EduAPI/VerifyAadhar", "POST", body1);
+                    //Uri localApi = new Uri(ConfigurationManager.AppSettings["apiURL"].ToString() + "/api/EduAPI/VerifyAadhar");
+                    //string t = await wc.DownloadStringAsync(localApi, "POST", body1);
                 }
                 MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
             }
