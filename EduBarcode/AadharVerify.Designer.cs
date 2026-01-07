@@ -36,6 +36,10 @@
             this.txtComment = new System.Windows.Forms.TextBox();
             this.btnSkip = new System.Windows.Forms.Button();
             this.txtAppNo = new System.Windows.Forms.Label();
+            this.btnAadharVerifyASYNC = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblAadharToken = new System.Windows.Forms.Label();
+            this.txtCandAadharToken = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -57,7 +61,7 @@
             // 
             // btnVerifyAadhar
             // 
-            this.btnVerifyAadhar.Location = new System.Drawing.Point(64, 149);
+            this.btnVerifyAadhar.Location = new System.Drawing.Point(302, 208);
             this.btnVerifyAadhar.Name = "btnVerifyAadhar";
             this.btnVerifyAadhar.Size = new System.Drawing.Size(134, 44);
             this.btnVerifyAadhar.TabIndex = 2;
@@ -78,7 +82,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(390, 103);
+            this.label2.Location = new System.Drawing.Point(485, 103);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 20);
             this.label2.TabIndex = 4;
@@ -86,14 +90,14 @@
             // 
             // txtComment
             // 
-            this.txtComment.Location = new System.Drawing.Point(394, 135);
+            this.txtComment.Location = new System.Drawing.Point(489, 135);
             this.txtComment.Name = "txtComment";
             this.txtComment.Size = new System.Drawing.Size(390, 26);
             this.txtComment.TabIndex = 5;
             // 
             // btnSkip
             // 
-            this.btnSkip.Location = new System.Drawing.Point(394, 177);
+            this.btnSkip.Location = new System.Drawing.Point(489, 177);
             this.btnSkip.Name = "btnSkip";
             this.btnSkip.Size = new System.Drawing.Size(139, 36);
             this.btnSkip.TabIndex = 6;
@@ -110,11 +114,50 @@
             this.txtAppNo.TabIndex = 7;
             this.txtAppNo.Text = ".";
             // 
+            // btnAadharVerifyASYNC
+            // 
+            this.btnAadharVerifyASYNC.Location = new System.Drawing.Point(95, 213);
+            this.btnAadharVerifyASYNC.Name = "btnAadharVerifyASYNC";
+            this.btnAadharVerifyASYNC.Size = new System.Drawing.Size(191, 35);
+            this.btnAadharVerifyASYNC.TabIndex = 8;
+            this.btnAadharVerifyASYNC.Text = "Verify Aadhar Async";
+            this.btnAadharVerifyASYNC.UseVisualStyleBackColor = true;
+            this.btnAadharVerifyASYNC.Click += new System.EventHandler(this.btnAadharVerifyASYNC_Click);
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(204, 27);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(13, 20);
+            this.lblStatus.TabIndex = 9;
+            this.lblStatus.Text = " ";
+            // 
+            // lblAadharToken
+            // 
+            this.lblAadharToken.AutoSize = true;
+            this.lblAadharToken.Location = new System.Drawing.Point(64, 143);
+            this.lblAadharToken.Name = "lblAadharToken";
+            this.lblAadharToken.Size = new System.Drawing.Size(109, 20);
+            this.lblAadharToken.TabIndex = 10;
+            this.lblAadharToken.Text = "Aadhar/Token";
+            // 
+            // txtCandAadharToken
+            // 
+            this.txtCandAadharToken.Location = new System.Drawing.Point(179, 140);
+            this.txtCandAadharToken.Name = "txtCandAadharToken";
+            this.txtCandAadharToken.Size = new System.Drawing.Size(194, 26);
+            this.txtCandAadharToken.TabIndex = 11;
+            // 
             // AadharVerify
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(796, 467);
+            this.ClientSize = new System.Drawing.Size(858, 467);
+            this.Controls.Add(this.txtCandAadharToken);
+            this.Controls.Add(this.lblAadharToken);
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.btnAadharVerifyASYNC);
             this.Controls.Add(this.txtAppNo);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.txtComment);
@@ -141,5 +184,9 @@
         private System.Windows.Forms.TextBox txtComment;
         private System.Windows.Forms.Button btnSkip;
         private System.Windows.Forms.Label txtAppNo;
+        private System.Windows.Forms.Button btnAadharVerifyASYNC;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblAadharToken;
+        private System.Windows.Forms.TextBox txtCandAadharToken;
     }
 }
