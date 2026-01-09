@@ -19,6 +19,7 @@ namespace EduBarcode
     {
         string deviceInfo = string.Empty;
         string completeUrl = "https://localhost:11200/rd/capture";
+        Module mod = new Module();
         public AadharVerify()
         {
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace EduBarcode
             {
                 aadharStatus.Visible = true;
                 aadharStatus.Update();
-                string completeUrl = "https://localhost:11200/rd/capture";
+                //string completeUrl = "https://localhost:11200/rd/capture";
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
                 request.Method = "CAPTURE";
                 request.Credentials = CredentialCache.DefaultCredentials;
@@ -86,30 +87,50 @@ namespace EduBarcode
         #endregion
 
         #region btnAadharVerifyASYNC_Click
-        private void btnAadharVerifyASYNC_Click(object sender, EventArgs e)
+        private async void btnAadharVerifyASYNC_Click(object sender, EventArgs e)
         {
             try
             {
                 if (txtCandAadharToken.Text.Trim().Length == 0)
                 {
-                    MessageBox.Show("Aadhar no. or Tokan cannot't be blank");
+                    MessageBox.Show("Aadhar no. or Token cannot't be blank");
                     return;
                 }
-                PostFPforVerify().ConfigureAwait(false);
+                HttpResponseMessage retRes = await PostFPforVerify().ConfigureAwait(true);
+                if (retRes.IsSuccessStatusCode)
+                {
+                    string result = await retRes.Content.ReadAsStringAsync();
+                    aadhaarResponse objResp = Newtonsoft.Json.JsonConvert.DeserializeObject<aadhaarResponse>(result);
+                    if (objResp.status == true)
+                    {
+                        MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
+                        mod.Navigate = 1;
+                        this.Dispose();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(objResp.error);
+                    }
+                }
+                else
+                    MessageBox.Show(this, "Error: " + retRes.StatusCode);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                DisplayMessage("");
+            }
         }
         #endregion
 
         #region PostFPforVerify
-        public async Task PostFPforVerify()
+        public async Task<HttpResponseMessage> PostFPforVerify()
         {
-            lblStatus.Visible = true;
-            lblStatus.Text = "Capturing Finger Print Data.";
-            lblStatus.Refresh();
+            DisplayMessage("Capturing finger print,  Please wait...");
             string pidData = string.Empty;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
             request.Method = "CAPTURE";
@@ -123,45 +144,64 @@ namespace EduBarcode
             Stream str = response.GetResponseStream();
             StreamReader sr = new StreamReader(str);
             aadhaarRequest myobj = new aadhaarRequest();
-            myobj.rdData = sr.ReadToEnd();
+            myobj.rdData = sr.ReadToEnd();//.Replace("\"", "\\\"");
             myobj.regNO = txtAppNo.Text;
             myobj.aadhaarNumber = txtCandAadharToken.Text;
             myobj.paperID = MainFrm.Hdoc.GetElementById("txtQPaperID").GetAttribute("value");
             myobj.examCode = "NIFT";
             myobj.centerID = "1";
-            lblStatus.Text = "Validating Aadhar...";
-            lblStatus.Refresh();
+            DisplayMessage("Validating Aadhar, Please wait....");
             using (var client = new HttpClient())
             {
-                //client.he.Add("Content-Type", "application/json");
                 string body1 = Newtonsoft.Json.JsonConvert.SerializeObject(myobj);
                 HttpContent content = new StringContent(body1, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage resp = await client.PostAsync(ConfigurationManager.AppSettings["apiURL"].ToString() + "/api/EduAPI/VerifyAadharAsyc", content).ConfigureAwait(false);
+                #region code
                 //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 //var content = new StringContent(body1, Encoding.UTF8, "application/json");
                 //var resp = await client.PostAsJsonAsync(ConfigurationManager.AppSettings["apiURL"].ToString() + "/api/EduAPI/VerifyAadharAsyc", body1).ConfigureAwait(false);
-                HttpResponseMessage resp = await client.PostAsync(ConfigurationManager.AppSettings["apiURL"].ToString() + "/api/EduAPI/VerifyAadharAsyc", content).ConfigureAwait(false);
-                if (resp.IsSuccessStatusCode)
-                {
-                    string result = await resp.Content.ReadAsStringAsync();
-                    aadhaarResponse objResp =  Newtonsoft.Json.JsonConvert.DeserializeObject<aadhaarResponse>(result);
-                    if(objResp.status == true)
-                        MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
-                    else
-                    {
-                        lblStatus.Text = "Some error";
-                        //MessageBox.Show(this, "Some error occured.", "Aadhar Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        MessageBox.Show("Some error occured.");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Error: " + resp.StatusCode);
-                }
-                //lblStatus.Text = "";
-                lblStatus.Refresh();
+
+                //if (resp.IsSuccessStatusCode)
+                //{
+                //    string result = await resp.Content.ReadAsStringAsync();
+                //    aadhaarResponse objResp =  Newtonsoft.Json.JsonConvert.DeserializeObject<aadhaarResponse>(result);
+                //    if (objResp.status == true)
+                //    {
+                //        MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show(objResp.error);
+                //    }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Error: " + resp.StatusCode);
+                //}
+                #endregion
+                return resp;
             }
+        }
+        #endregion
+
+        #region DisplayMessage
+        public void DisplayMessage(string statusMessage)
+        {
+            lblStatus.Visible = true;
+            lblStatus.Text = statusMessage;
+            lblStatus.Refresh();
+        }
+        #endregion
+
+        #region checkBox1_CheckedChanged
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                panel1.Visible = true;
+            else
+                panel1.Visible = false;
         }
         #endregion
     }

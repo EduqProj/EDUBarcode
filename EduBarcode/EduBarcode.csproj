@@ -204,6 +204,7 @@
     <EmbeddedResource Include="VerifyFP.resx">
       <DependentUpon>VerifyFP.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DOCS\download %281%29.pdf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
