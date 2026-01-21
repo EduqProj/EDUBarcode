@@ -167,7 +167,7 @@ namespace EduBarcode
             myobj.paperID = MainFrm.Hdoc.GetElementById("txtQPaperID").GetAttribute("value");
             myobj.examCode = "NIFT";
             myobj.centerID = "1";
-            DisplayMessage("Validating Aadhar, Please wait....");
+            DisplayMessage("Validating Aadhaar, Please wait....");
             
             using (var client = new HttpClient())
             {
@@ -199,7 +199,7 @@ namespace EduBarcode
                 //    MessageBox.Show("Error: " + resp.StatusCode);
                 //}
                 #endregion
-                MessageBox.Show(resp.ToString());
+                //MessageBox.Show(resp.ToString());
                 return resp;
             }
         }

@@ -69,7 +69,7 @@ namespace EduBarcode
                 if (bReturn)
                 {
                     mod.iDevice = 0;
-                    mod.hHwnd = Module.capCreateCaptureWindowA(string.Empty, Module.WS_VISIBLE, this.Location.X + 20, this.Location.Y + 30, 320, 240, picCapture.Handle.ToInt32(), 0);
+                    mod.hHwnd = Module.capCreateCaptureWindowA(string.Empty, Module.WS_VISIBLE, this.Location.X + 20, this.Location.Y + 30, 360, 280, picCapture.Handle.ToInt32(), 0);
                     if (Module.SendMessage(mod.hHwnd, Module.WM_CAP_DRIVER_CONNECT, mod.iDevice, 0) == 1)
                     {
                         Module.SendMessage(mod.hHwnd, Module.WM_CAP_SET_SCALE, 1, 0);
