@@ -100,17 +100,17 @@ namespace EduBarcode
                     ClosePreviewWindow();
                     picCapture.Visible = false;
                     String sfilename = Environment.CurrentDirectory + "\\" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + ".jpg";
-                    string status = "0";
+                    string status = "-2.0";
                     bmap.Save(sfilename, System.Drawing.Imaging.ImageFormat.Jpeg);
                     if (File.Exists(downloadedAppPhotoPath))
                     {
-                        float retSim = VerifyFace(sfilename, downloadedAppPhotoPath);
-                        if(retSim == -1.0)
-                            status = "3";
-                        else if (retSim >= 0.6)
-                            status = "1";
-                        else if (retSim < 0.6)
-                            status = "2";
+                        status = VerifyFace(sfilename, downloadedAppPhotoPath);
+                        //if(retSim == -1.0)
+                        //    status = "3";
+                        //else if (retSim >= 0.6)
+                        //    status = "1";
+                        //else if (retSim < 0.6)
+                        //    status = "2";
                     }
                     try
                     {
@@ -158,7 +158,7 @@ namespace EduBarcode
         #endregion
 
         #region VerifyFace
-        public float VerifyFace(string sfilename, string downloadedAppPhotoPath)
+        public string VerifyFace(string sfilename, string downloadedAppPhotoPath)
         {
             if (FSDK.FSDKE_OK != FSDK.ActivateLibrary("VUzKxVCKWJysFe9OAsmSl1kLIbt1cFbGIOuZEw1fsDflUlbrC8RR98RAsfH1Ys3gn0BipRWwVPb2vxQd82z4QUQVpfpvTx52T9B7/suH+KQ6M01vkn3Q1WMQz/jKxwvFcUlllvoFzNtd1mbDWCaMMERBAXS5iXKSqpzMlSWuCP0="))
                 MessageBox.Show("Please run the License Key Wizard");
@@ -183,7 +183,7 @@ namespace EduBarcode
             finally
             {
             }
-            return Similarity;
+            return Similarity.ToString("#.####");
         }
         #endregion
 

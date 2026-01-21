@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6DEF27D80DDD4FEAA163DFA27DBDFF82"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7C1E58B9539E4484B1C4E5EECEB66515"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,12 +70,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A0BA839D2CC2469E5595552E6A9618DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F6A03295F8747C83E44DCF2C9E2E4652"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -83,6 +83,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D14B34CCCE07FB56D7C4EBDD6E60E457"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A0BA839D2CC2469E5595552E6A9618DA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -247,6 +253,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6DEF27D80DDD4FEAA163DFA27DBDFF82"
+            {
+            "SourcePath" = "8:..\\EduBarcode\\bin\\x86\\Release\\facesdk.dll"
+            "TargetName" = "8:facesdk.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_CD72A6A0FC924A39B5C22A0F674CCE7A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7C1E58B9539E4484B1C4E5EECEB66515"
@@ -448,10 +474,10 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:AMRITA_BARCODE"
-        "ProductCode" = "8:{935A52DB-6ADA-435C-BBDC-6538492E9CD0}"
-        "PackageCode" = "8:{5AF3EE31-68C1-4ED6-B89A-0A88CA32CB4A}"
-        "UpgradeCode" = "8:{44D2AA6F-9336-46CD-8ADE-854440DD038F}"
+        "ProductName" = "8:EDU_BARCODE"
+        "ProductCode" = "8:{E405C58D-CBA7-46E5-8CEA-00F5405A9065}"
+        "PackageCode" = "8:{990E2949-95F0-4CF5-9879-1378BD0A30B1}"
+        "UpgradeCode" = "8:{1785491B-9069-4638-85D7-0E9C66691598}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -461,7 +487,7 @@
         "Manufacturer" = "8:Default Company Name"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:AMRITA_BARCODE"
+        "Title" = "8:EDU_BARCODE"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Eduquity"
         "Keywords" = "8:"
@@ -572,7 +598,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EAC214051EDA413AAAB1BE263F02D299"
             {
-            "Name" = "8:AMTRITA_Barcode"
+            "Name" = "8:NIFT_Barcode"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1013,7 +1039,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B692740541FE491C9FFDBB661D22B4AF"
             {
-            "SourcePath" = "8:..\\EduBarcode\\obj\\Debug\\EduBarcode.exe"
+            "SourcePath" = "8:..\\EduBarcode\\obj\\x86\\Release\\EduBarcode.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_CD72A6A0FC924A39B5C22A0F674CCE7A"

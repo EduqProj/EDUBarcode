@@ -42,13 +42,14 @@
             this.txtCandAadharToken = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ddlReason = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 101);
+            this.label1.Location = new System.Drawing.Point(77, 74);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 20);
             this.label1.TabIndex = 0;
@@ -57,19 +58,20 @@
             // lblAppNo
             // 
             this.lblAppNo.AutoSize = true;
-            this.lblAppNo.Location = new System.Drawing.Point(91, 101);
+            this.lblAppNo.Location = new System.Drawing.Point(149, 74);
             this.lblAppNo.Name = "lblAppNo";
             this.lblAppNo.Size = new System.Drawing.Size(0, 20);
             this.lblAppNo.TabIndex = 1;
             // 
             // btnVerifyAadhar
             // 
-            this.btnVerifyAadhar.Location = new System.Drawing.Point(239, 188);
+            this.btnVerifyAadhar.Location = new System.Drawing.Point(250, 207);
             this.btnVerifyAadhar.Name = "btnVerifyAadhar";
             this.btnVerifyAadhar.Size = new System.Drawing.Size(197, 44);
             this.btnVerifyAadhar.TabIndex = 2;
             this.btnVerifyAadhar.Text = "Verify Aadhar SYNC";
             this.btnVerifyAadhar.UseVisualStyleBackColor = true;
+            this.btnVerifyAadhar.Visible = false;
             this.btnVerifyAadhar.Click += new System.EventHandler(this.btnVerifyAadhar_Click);
             // 
             // aadharStatus
@@ -95,16 +97,16 @@
             // 
             // txtComment
             // 
-            this.txtComment.Location = new System.Drawing.Point(7, 46);
+            this.txtComment.Location = new System.Drawing.Point(87, 46);
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(332, 26);
+            this.txtComment.Size = new System.Drawing.Size(279, 26);
             this.txtComment.TabIndex = 5;
             // 
             // btnSkip
             // 
-            this.btnSkip.Location = new System.Drawing.Point(7, 88);
+            this.btnSkip.Location = new System.Drawing.Point(87, 78);
             this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(113, 36);
+            this.btnSkip.Size = new System.Drawing.Size(131, 48);
             this.btnSkip.TabIndex = 6;
             this.btnSkip.Text = "Continue >>";
             this.btnSkip.UseVisualStyleBackColor = true;
@@ -113,7 +115,7 @@
             // txtAppNo
             // 
             this.txtAppNo.AutoSize = true;
-            this.txtAppNo.Location = new System.Drawing.Point(82, 101);
+            this.txtAppNo.Location = new System.Drawing.Point(154, 74);
             this.txtAppNo.Name = "txtAppNo";
             this.txtAppNo.Size = new System.Drawing.Size(13, 20);
             this.txtAppNo.TabIndex = 7;
@@ -121,7 +123,7 @@
             // 
             // btnAadharVerifyASYNC
             // 
-            this.btnAadharVerifyASYNC.Location = new System.Drawing.Point(23, 188);
+            this.btnAadharVerifyASYNC.Location = new System.Drawing.Point(149, 163);
             this.btnAadharVerifyASYNC.Name = "btnAadharVerifyASYNC";
             this.btnAadharVerifyASYNC.Size = new System.Drawing.Size(191, 44);
             this.btnAadharVerifyASYNC.TabIndex = 8;
@@ -143,7 +145,7 @@
             // lblAadharToken
             // 
             this.lblAadharToken.AutoSize = true;
-            this.lblAadharToken.Location = new System.Drawing.Point(20, 141);
+            this.lblAadharToken.Location = new System.Drawing.Point(34, 114);
             this.lblAadharToken.Name = "lblAadharToken";
             this.lblAadharToken.Size = new System.Drawing.Size(109, 20);
             this.lblAadharToken.TabIndex = 10;
@@ -151,7 +153,7 @@
             // 
             // txtCandAadharToken
             // 
-            this.txtCandAadharToken.Location = new System.Drawing.Point(135, 138);
+            this.txtCandAadharToken.Location = new System.Drawing.Point(149, 111);
             this.txtCandAadharToken.Name = "txtCandAadharToken";
             this.txtCandAadharToken.Size = new System.Drawing.Size(194, 26);
             this.txtCandAadharToken.TabIndex = 11;
@@ -159,7 +161,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(489, 54);
+            this.checkBox1.Location = new System.Drawing.Point(492, 74);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(101, 24);
             this.checkBox1.TabIndex = 12;
@@ -169,14 +171,29 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ddlReason);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtComment);
             this.panel1.Controls.Add(this.btnSkip);
-            this.panel1.Location = new System.Drawing.Point(489, 101);
+            this.panel1.Location = new System.Drawing.Point(492, 117);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(377, 142);
             this.panel1.TabIndex = 13;
             this.panel1.Visible = false;
+            // 
+            // ddlReason
+            // 
+            this.ddlReason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlReason.FormattingEnabled = true;
+            this.ddlReason.Items.AddRange(new object[] {
+            "Aadhaar no. or token not available.",
+            "Server is not responding.",
+            "Candidate finger is having problem.",
+            "Finger print sensor not detecting."});
+            this.ddlReason.Location = new System.Drawing.Point(87, 12);
+            this.ddlReason.Name = "ddlReason";
+            this.ddlReason.Size = new System.Drawing.Size(279, 28);
+            this.ddlReason.TabIndex = 7;
             // 
             // AadharVerify
             // 
@@ -220,5 +237,6 @@
         private System.Windows.Forms.TextBox txtCandAadharToken;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox ddlReason;
     }
 }

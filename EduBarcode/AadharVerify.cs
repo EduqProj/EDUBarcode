@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace EduBarcode
 {
@@ -74,7 +75,22 @@ namespace EduBarcode
         #region btnSkip_Click
         private void btnSkip_Click(object sender, EventArgs e)
         {
-
+            DialogResult result = MessageBox.Show(
+                "Do you want to continue or cancel?", // Message text
+                "Confirmation",                      // Message box title
+                MessageBoxButtons.OKCancel,          // Buttons to display
+                MessageBoxIcon.Question              // Icon to display
+            );
+            if (result == DialogResult.OK)
+            {
+                string skipComments = ddlReason.SelectedText + ", " + txtComment.Text;
+                MainFrm.Hdoc.GetElementById("txtAddharVerifyComments").SetAttribute("value", skipComments);
+                MainFrm.Hdoc.GetElementById("txtAadharStatus").SetAttribute("value", "0");
+                MainFrm.Hdoc.GetElementById("btnSkip").InvokeMember("click");
+                mod.Navigate = 1;
+                this.Dispose();
+                this.Close();
+            }
         }
         #endregion
 
@@ -89,29 +105,34 @@ namespace EduBarcode
         #region btnAadharVerifyASYNC_Click
         private async void btnAadharVerifyASYNC_Click(object sender, EventArgs e)
         {
+            MessageBox.Show(ConfigurationManager.AppSettings["apiURL"].ToString() + "api/EduAPI/VerifyAadharAsyc");
             try
             {
                 if (txtCandAadharToken.Text.Trim().Length == 0)
                 {
-                    MessageBox.Show("Aadhar no. or Token cannot't be blank");
+                    MessageBox.Show("Aadhar no. or Token cannot't be blank.");
                     return;
                 }
-                HttpResponseMessage retRes = await PostFPforVerify().ConfigureAwait(true);
+                //if(CheckDeviceReady() == "NOTREADY")
+                //{
+                //    MessageBox.Show("Access Finger Print Device is not ready,  check properly connected.");
+                //    return;
+                //}
+                HttpResponseMessage retRes = await PostFPforVerifyAsync().ConfigureAwait(true);
                 if (retRes.IsSuccessStatusCode)
                 {
                     string result = await retRes.Content.ReadAsStringAsync();
                     aadhaarResponse objResp = Newtonsoft.Json.JsonConvert.DeserializeObject<aadhaarResponse>(result);
                     if (objResp.status == true)
                     {
+                        MainFrm.Hdoc.GetElementById("txtAadharStatus").SetAttribute("value", "1");
                         MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
                         mod.Navigate = 1;
                         this.Dispose();
                         this.Close();
                     }
                     else
-                    {
                         MessageBox.Show(objResp.error);
-                    }
                 }
                 else
                     MessageBox.Show(this, "Error: " + retRes.StatusCode);
@@ -120,15 +141,11 @@ namespace EduBarcode
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                DisplayMessage("");
-            }
         }
         #endregion
 
         #region PostFPforVerify
-        public async Task<HttpResponseMessage> PostFPforVerify()
+        public async Task<HttpResponseMessage> PostFPforVerifyAsync()
         {
             DisplayMessage("Capturing finger print,  Please wait...");
             string pidData = string.Empty;
@@ -151,13 +168,14 @@ namespace EduBarcode
             myobj.examCode = "NIFT";
             myobj.centerID = "1";
             DisplayMessage("Validating Aadhar, Please wait....");
+            
             using (var client = new HttpClient())
             {
                 string body1 = Newtonsoft.Json.JsonConvert.SerializeObject(myobj);
                 HttpContent content = new StringContent(body1, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage resp = await client.PostAsync(ConfigurationManager.AppSettings["apiURL"].ToString() + "/api/EduAPI/VerifyAadharAsyc", content).ConfigureAwait(false);
+                HttpResponseMessage resp = await client.PostAsync(ConfigurationManager.AppSettings["apiURL"].ToString() + "api/EduAPI/VerifyAadharAsyc", content).ConfigureAwait(false);
                 #region code
                 //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 //var content = new StringContent(body1, Encoding.UTF8, "application/json");
@@ -181,6 +199,7 @@ namespace EduBarcode
                 //    MessageBox.Show("Error: " + resp.StatusCode);
                 //}
                 #endregion
+                MessageBox.Show(resp.ToString());
                 return resp;
             }
         }
@@ -202,6 +221,42 @@ namespace EduBarcode
                 panel1.Visible = true;
             else
                 panel1.Visible = false;
+        }
+        #endregion
+
+        #region CheckDeviceReady
+        public string CheckDeviceReady()
+        {
+            string completeUrl = "https://localhost:11200/";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
+            request.Method = "RDSERVICE";
+            request.Credentials = CredentialCache.DefaultCredentials;
+            request.ContentType = "text/xml";
+            WebResponse response = default(WebResponse);
+            response = request.GetResponse();
+            Stream str = response.GetResponseStream();
+            StreamReader sr = new StreamReader(str);
+            string finalResponse = sr.ReadToEnd();
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(finalResponse);
+            // Access the document element and get the attribute value by name
+            return doc.DocumentElement.GetAttribute("status");
+        }
+        #endregion
+
+        #region GetDeviceInfo
+        public string GetDeviceInfo()
+        {
+            string completeUrl = "https://localhost:11200/rd/info";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
+            request.Method = "DEVICEINFO";
+            request.Credentials = CredentialCache.DefaultCredentials;
+            request.ContentType = "text/xml";
+            WebResponse response = default(WebResponse);
+            response = request.GetResponse();
+            Stream str = response.GetResponseStream();
+            StreamReader sr = new StreamReader(str);
+            return sr.ReadToEnd();
         }
         #endregion
     }
