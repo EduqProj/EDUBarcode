@@ -43,6 +43,8 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ddlReason = new System.Windows.Forms.ComboBox();
+            this.btnTestAadhar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +67,7 @@
             // 
             // btnVerifyAadhar
             // 
-            this.btnVerifyAadhar.Location = new System.Drawing.Point(250, 207);
+            this.btnVerifyAadhar.Location = new System.Drawing.Point(835, 424);
             this.btnVerifyAadhar.Name = "btnVerifyAadhar";
             this.btnVerifyAadhar.Size = new System.Drawing.Size(197, 44);
             this.btnVerifyAadhar.TabIndex = 2;
@@ -89,7 +91,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 14);
+            this.label2.Location = new System.Drawing.Point(52, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 20);
             this.label2.TabIndex = 4;
@@ -97,19 +99,22 @@
             // 
             // txtComment
             // 
-            this.txtComment.Location = new System.Drawing.Point(87, 46);
+            this.txtComment.Location = new System.Drawing.Point(136, 52);
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(279, 26);
+            this.txtComment.Size = new System.Drawing.Size(380, 26);
             this.txtComment.TabIndex = 5;
             // 
             // btnSkip
             // 
-            this.btnSkip.Location = new System.Drawing.Point(87, 78);
+            this.btnSkip.BackColor = System.Drawing.Color.Red;
+            this.btnSkip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSkip.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSkip.Location = new System.Drawing.Point(87, 91);
             this.btnSkip.Name = "btnSkip";
             this.btnSkip.Size = new System.Drawing.Size(131, 48);
             this.btnSkip.TabIndex = 6;
             this.btnSkip.Text = "Continue >>";
-            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.UseVisualStyleBackColor = false;
             this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
             // txtAppNo
@@ -123,12 +128,15 @@
             // 
             // btnAadharVerifyASYNC
             // 
+            this.btnAadharVerifyASYNC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnAadharVerifyASYNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAadharVerifyASYNC.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnAadharVerifyASYNC.Location = new System.Drawing.Point(149, 163);
             this.btnAadharVerifyASYNC.Name = "btnAadharVerifyASYNC";
             this.btnAadharVerifyASYNC.Size = new System.Drawing.Size(191, 44);
             this.btnAadharVerifyASYNC.TabIndex = 8;
-            this.btnAadharVerifyASYNC.Text = "Verify Aadhar Async";
-            this.btnAadharVerifyASYNC.UseVisualStyleBackColor = true;
+            this.btnAadharVerifyASYNC.Text = "Verify Aadhar";
+            this.btnAadharVerifyASYNC.UseVisualStyleBackColor = false;
             this.btnAadharVerifyASYNC.Click += new System.EventHandler(this.btnAadharVerifyASYNC_Click);
             // 
             // lblStatus
@@ -171,13 +179,14 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.ddlReason);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtComment);
             this.panel1.Controls.Add(this.btnSkip);
             this.panel1.Location = new System.Drawing.Point(492, 117);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(377, 142);
+            this.panel1.Size = new System.Drawing.Size(540, 180);
             this.panel1.TabIndex = 13;
             this.panel1.Visible = false;
             // 
@@ -189,17 +198,38 @@
             "Aadhaar no. or token not available.",
             "Server is not responding.",
             "Candidate finger is having problem.",
-            "Finger print sensor not detecting."});
-            this.ddlReason.Location = new System.Drawing.Point(87, 12);
+            "Finger print sensor not detecting.",
+            "Other"});
+            this.ddlReason.Location = new System.Drawing.Point(136, 11);
             this.ddlReason.Name = "ddlReason";
             this.ddlReason.Size = new System.Drawing.Size(279, 28);
             this.ddlReason.TabIndex = 7;
+            // 
+            // btnTestAadhar
+            // 
+            this.btnTestAadhar.Location = new System.Drawing.Point(38, 316);
+            this.btnTestAadhar.Name = "btnTestAadhar";
+            this.btnTestAadhar.Size = new System.Drawing.Size(247, 47);
+            this.btnTestAadhar.TabIndex = 14;
+            this.btnTestAadhar.Text = "Test Aadhaar >>";
+            this.btnTestAadhar.UseVisualStyleBackColor = true;
+            this.btnTestAadhar.Click += new System.EventHandler(this.btnTestAadhar_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(114, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Select Reason";
             // 
             // AadharVerify
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 496);
+            this.ClientSize = new System.Drawing.Size(1044, 480);
+            this.Controls.Add(this.btnTestAadhar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.txtCandAadharToken);
@@ -238,5 +268,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox ddlReason;
+        private System.Windows.Forms.Button btnTestAadhar;
+        private System.Windows.Forms.Label label3;
     }
 }

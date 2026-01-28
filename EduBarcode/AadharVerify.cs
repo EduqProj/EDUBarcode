@@ -75,15 +75,20 @@ namespace EduBarcode
         #region btnSkip_Click
         private void btnSkip_Click(object sender, EventArgs e)
         {
+            if(ddlReason.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please selet reason.");
+                return;
+            }
             DialogResult result = MessageBox.Show(
-                "Do you want to continue or cancel?", // Message text
-                "Confirmation",                      // Message box title
-                MessageBoxButtons.OKCancel,          // Buttons to display
-                MessageBoxIcon.Question              // Icon to display
+               "Do you want to continue or cancel?", // Message text
+               "Confirmation",                      // Message box title
+               MessageBoxButtons.OKCancel,          // Buttons to display
+               MessageBoxIcon.Question              // Icon to display
             );
             if (result == DialogResult.OK)
             {
-                string skipComments = ddlReason.SelectedText + ", " + txtComment.Text;
+                string skipComments = ddlReason.SelectedItem.ToString() + ", " + txtComment.Text;
                 MainFrm.Hdoc.GetElementById("txtAddharVerifyComments").SetAttribute("value", skipComments);
                 MainFrm.Hdoc.GetElementById("txtAadharStatus").SetAttribute("value", "0");
                 MainFrm.Hdoc.GetElementById("btnSkip").InvokeMember("click");
@@ -105,7 +110,7 @@ namespace EduBarcode
         #region btnAadharVerifyASYNC_Click
         private async void btnAadharVerifyASYNC_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(ConfigurationManager.AppSettings["apiURL"].ToString() + "api/EduAPI/VerifyAadharAsyc");
+            //MessageBox.Show(ConfigurationManager.AppSettings["apiURL"].ToString() + "api/EduAPI/VerifyAadharAsyc");
             try
             {
                 if (txtCandAadharToken.Text.Trim().Length == 0)
@@ -113,11 +118,11 @@ namespace EduBarcode
                     MessageBox.Show("Aadhar no. or Token cannot't be blank.");
                     return;
                 }
-                //if(CheckDeviceReady() == "NOTREADY")
-                //{
-                //    MessageBox.Show("Access Finger Print Device is not ready,  check properly connected.");
-                //    return;
-                //}
+                if (CheckDeviceReady() == "NOTREADY")
+                {
+                    MessageBox.Show("Access Finger Print Device is not ready,  check properly connected.");
+                    return;
+                }
                 HttpResponseMessage retRes = await PostFPforVerifyAsync().ConfigureAwait(true);
                 if (retRes.IsSuccessStatusCode)
                 {
@@ -160,15 +165,18 @@ namespace EduBarcode
             response = request.GetResponse();
             Stream str = response.GetResponseStream();
             StreamReader sr = new StreamReader(str);
-            aadhaarRequest myobj = new aadhaarRequest();
-            myobj.rdData = sr.ReadToEnd();//.Replace("\"", "\\\"");
-            myobj.regNO = txtAppNo.Text;
-            myobj.aadhaarNumber = txtCandAadharToken.Text;
-            myobj.paperID = MainFrm.Hdoc.GetElementById("txtQPaperID").GetAttribute("value");
-            myobj.examCode = "NIFT";
-            myobj.centerID = "1";
+            //aadhaarRequest myobj = new aadhaarRequest();
+            //myobj.rdData = sr.ReadToEnd();//.Replace("\"", "\\\"");
+            //myobj.regNO = txtAppNo.Text;
+            //myobj.aadhaarNumber = txtCandAadharToken.Text;
+            //myobj.paperID = MainFrm.Hdoc.GetElementById("txtQPaperID").GetAttribute("value");
+            //myobj.examCode = "NIFT";
+            //myobj.centerID = "1";
+            InovativeAadharReq myobj = new InovativeAadharReq();
+            myobj.bio = sr.ReadToEnd();
+            myobj.roll_no = txtAppNo.Text.Trim();
+            myobj.uid = txtCandAadharToken.Text;
             DisplayMessage("Validating Aadhaar, Please wait....");
-            
             using (var client = new HttpClient())
             {
                 string body1 = Newtonsoft.Json.JsonConvert.SerializeObject(myobj);
@@ -259,6 +267,27 @@ namespace EduBarcode
             return sr.ReadToEnd();
         }
         #endregion
+
+        private void btnTestAadhar_Click(object sender, EventArgs e)
+        {
+            string pidData = string.Empty;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
+            request.Method = "CAPTURE";
+            request.Credentials = CredentialCache.DefaultCredentials;
+            StreamWriter writer = new StreamWriter(request.GetRequestStream());
+            string pidOptString = "<PidOptions ver=\"1.0\" env=\"P\"><Opts fCount=\"1\" fType=\"2\" format=\"0\" pidVer=\"2.0\" timeout=\"20000\" posh =\"UNKNOWN\" env=\"P\" wadh=\"\" /></PidOptions>";
+            writer.WriteLine(pidOptString);
+            writer.Close();
+            WebResponse response = default(WebResponse);
+            response = request.GetResponse();
+            Stream str = response.GetResponseStream();
+            StreamReader sr = new StreamReader(str);
+        }
+
+        public async Task<HttpResponseMessage> CheckInovativeAadhar()
+        {
+
+        }
     }
 
     #region aadhaarRequest
@@ -281,6 +310,18 @@ namespace EduBarcode
         public string centerID { get; set; }
         public bool status { get; set; }
         public string error { get; set; }
+    }
+    #endregion
+
+    #region InovativeAadharReq
+    public class InovativeAadharReq
+    {
+        public string bio { get; set; }
+        public string roll_no { get; set; }
+        public string uid { get; set; }
+        public string center_code { get; set; }
+        public string examCode { get; set; }
+        public string examLevel { get; set; }
     }
     #endregion
 }
