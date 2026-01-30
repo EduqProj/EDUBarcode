@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EduBarcode.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -124,23 +125,21 @@ namespace EduBarcode
                     return;
                 }
                 HttpResponseMessage retRes = await PostFPforVerifyAsync().ConfigureAwait(true);
-                if (retRes.IsSuccessStatusCode)
+                string result = await retRes.Content.ReadAsStringAsync();
+                modInovativeAadharResp objResp = Newtonsoft.Json.JsonConvert.DeserializeObject<modInovativeAadharResp>(result);
+                if (objResp.status.ToUpper().Trim() == "SUCCESS")
                 {
-                    string result = await retRes.Content.ReadAsStringAsync();
-                    aadhaarResponse objResp = Newtonsoft.Json.JsonConvert.DeserializeObject<aadhaarResponse>(result);
-                    if (objResp.status == true)
-                    {
-                        MainFrm.Hdoc.GetElementById("txtAadharStatus").SetAttribute("value", "1");
-                        MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
-                        mod.Navigate = 1;
-                        this.Dispose();
-                        this.Close();
-                    }
-                    else
-                        MessageBox.Show(objResp.error);
+                    MainFrm.Hdoc.GetElementById("txtAadharStatus").SetAttribute("value", "1");
+                    MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
+                    mod.Navigate = 1;
+                    this.Dispose();
+                    this.Close();
                 }
                 else
-                    MessageBox.Show(this, "Error: " + retRes.StatusCode);
+                {
+                    DisplayMessage("");
+                    MessageBox.Show(objResp.message);
+                }
             }
             catch (Exception ex)
             {
@@ -176,6 +175,7 @@ namespace EduBarcode
             myobj.bio = sr.ReadToEnd();
             myobj.roll_no = txtAppNo.Text.Trim();
             myobj.uid = txtCandAadharToken.Text;
+            myobj.qPaperID = MainFrm.Hdoc.GetElementById("txtQPaperID").GetAttribute("value");
             DisplayMessage("Validating Aadhaar, Please wait....");
             using (var client = new HttpClient())
             {
@@ -268,26 +268,6 @@ namespace EduBarcode
         }
         #endregion
 
-        private void btnTestAadhar_Click(object sender, EventArgs e)
-        {
-            string pidData = string.Empty;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(completeUrl);
-            request.Method = "CAPTURE";
-            request.Credentials = CredentialCache.DefaultCredentials;
-            StreamWriter writer = new StreamWriter(request.GetRequestStream());
-            string pidOptString = "<PidOptions ver=\"1.0\" env=\"P\"><Opts fCount=\"1\" fType=\"2\" format=\"0\" pidVer=\"2.0\" timeout=\"20000\" posh =\"UNKNOWN\" env=\"P\" wadh=\"\" /></PidOptions>";
-            writer.WriteLine(pidOptString);
-            writer.Close();
-            WebResponse response = default(WebResponse);
-            response = request.GetResponse();
-            Stream str = response.GetResponseStream();
-            StreamReader sr = new StreamReader(str);
-        }
-
-        public async Task<HttpResponseMessage> CheckInovativeAadhar()
-        {
-
-        }
     }
 
     #region aadhaarRequest
@@ -322,6 +302,8 @@ namespace EduBarcode
         public string center_code { get; set; }
         public string examCode { get; set; }
         public string examLevel { get; set; }
+
+        public string qPaperID { get; set; }
     }
     #endregion
 }
