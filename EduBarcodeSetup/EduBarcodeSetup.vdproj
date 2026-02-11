@@ -64,6 +64,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1E7A452443BC1192B7BD3CD239DE8E28"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B692740541FE491C9FFDBB661D22B4AF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -89,12 +95,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A0BA839D2CC2469E5595552E6A9618DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1E7A452443BC1192B7BD3CD239DE8E28"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -475,9 +475,9 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EDU_BARCODE"
-        "ProductCode" = "8:{E405C58D-CBA7-46E5-8CEA-00F5405A9065}"
-        "PackageCode" = "8:{990E2949-95F0-4CF5-9879-1378BD0A30B1}"
-        "UpgradeCode" = "8:{1785491B-9069-4638-85D7-0E9C66691598}"
+        "ProductCode" = "8:{1709C496-5090-4DC3-A9E1-7F9640D5A62D}"
+        "PackageCode" = "8:{CFFEFB91-3B63-49AD-9ED2-993C58CA31A9}"
+        "UpgradeCode" = "8:{5FE826EB-5344-4F30-ABB3-19C5F5419D56}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"

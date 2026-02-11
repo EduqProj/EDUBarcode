@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,7 @@ namespace EduBarcode
         public AadharVerify()
         {
             InitializeComponent();
+            //this.TopMost = true;
         }
 
         #region btnVerifyAadhar_Click
@@ -127,7 +129,7 @@ namespace EduBarcode
                 HttpResponseMessage retRes = await PostFPforVerifyAsync().ConfigureAwait(true);
                 string result = await retRes.Content.ReadAsStringAsync();
                 modInovativeAadharResp objResp = Newtonsoft.Json.JsonConvert.DeserializeObject<modInovativeAadharResp>(result);
-                if (objResp.status.ToUpper().Trim() == "SUCCESS")
+                if (objResp.failed.ToUpper().Trim() == "FALSE")
                 {
                     MainFrm.Hdoc.GetElementById("txtAadharStatus").SetAttribute("value", "1");
                     MainFrm.Hdoc.GetElementById("btnsubmit").InvokeMember("click");
@@ -138,12 +140,12 @@ namespace EduBarcode
                 else
                 {
                     DisplayMessage("");
-                    MessageBox.Show(objResp.message);
+                    MessageBox.Show(objResp.Message, "Eoor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Eoor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
         #endregion
@@ -175,6 +177,7 @@ namespace EduBarcode
             myobj.bio = sr.ReadToEnd();
             myobj.roll_no = txtAppNo.Text.Trim();
             myobj.uid = txtCandAadharToken.Text;
+            myobj.center_code = "1001";
             myobj.qPaperID = MainFrm.Hdoc.GetElementById("txtQPaperID").GetAttribute("value");
             DisplayMessage("Validating Aadhaar, Please wait....");
             using (var client = new HttpClient())

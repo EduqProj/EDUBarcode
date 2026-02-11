@@ -25,8 +25,8 @@ namespace EduBarcode
 
         public static float FaceDetectionThreshold = 3;
         public static float FARValue = 100;
-        string srcAppPhotoPath = ConfigurationSettings.AppSettings["TestPathURL"].ToString().Trim() + "//Photos//" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + "P.jpg";
-        string downloadedAppPhotoPath = Environment.CurrentDirectory + "//" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + "P.jpg";
+        string srcAppPhotoPath = ConfigurationSettings.AppSettings["TestPathURL"].ToString().Trim() + "//Photos//" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + "p.jpg";
+        string downloadedAppPhotoPath = Environment.CurrentDirectory + "//" + MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + "p.jpg";
         public TakePhoto()
         {
             InitializeComponent();
@@ -259,7 +259,7 @@ namespace EduBarcode
                 {
                     try
                     {
-                        wb.DownloadFile(srcAppPhotoPath, MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + "P.jpg");
+                        wb.DownloadFile(srcAppPhotoPath, MainFrm.Hdoc.GetElementById("applno").GetAttribute("value") + "p.jpg");
                         picAppPhoto.SizeMode = PictureBoxSizeMode.Zoom;
                         picAppPhoto.Image = Image.FromFile(downloadedAppPhotoPath);
                     }

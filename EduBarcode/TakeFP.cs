@@ -28,7 +28,7 @@ namespace EduBarcode
         public TakeFP()
         {
             InitializeComponent();
-            this.TopMost = true;
+            //this.TopMost = true;
         }
        
         private void Form1_Load(object sender, EventArgs e)

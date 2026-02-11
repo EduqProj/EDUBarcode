@@ -95,23 +95,27 @@ namespace EduBarcode
             {
                 //AppNo = Hdoc.GetElementById("applno").GetAttribute("value");
                 AadharVerify objFP = new AadharVerify();
+                objFP.BringToFront();
                 objFP.ShowDialog();
             }
             else if (chkurl == "takefingerprint.aspx")
             {
                 //AppNo = Hdoc.GetElementById("applno").GetAttribute("value");
                 TakeFP objFP = new TakeFP();
+                //objFP.BringToFront();
                 objFP.ShowDialog();
             }
             else if (chkurl == "takephoto.aspx")
             {
                 //AppNo = Hdoc.GetElementById("applno").GetAttribute("value");
                 TakePhoto objPhto = new TakePhoto();
+                //objPhto.BringToFront();
                 objPhto.ShowDialog();
             }
             else if (chkurl == "verifythumb.aspx")
             {
                 FPCaptureVerify fp = new FPCaptureVerify();
+                //fp.BringToFront();
                 fp.ShowDialog();
             }
         }

@@ -21,6 +21,7 @@ namespace EduBarcode
         public VerifyFP()
         {
             InitializeComponent();
+            this.TopMost = true;
         }
 
         private void btnVerify_Click(object sender, EventArgs e)
